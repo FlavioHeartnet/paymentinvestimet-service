@@ -55,7 +55,7 @@ app.post('/create-payment-intent', async (req, res) => {
       const paymentIntent = subscription.latest_invoice && subscription.latest_invoice.payment_intent;
       const clientSecret = paymentIntent ? paymentIntent.client_secret : null;
       // Return customerId so the client can store it and reuse in future
-      return res.json({ clientSecret, subscriptionId: subscription.id, customerId: customer.id });
+      return res.json({ clientSecret, subscriptionId: subscription.id, customerId: customer.id, ephemeralKeySecret: customer.ephemeral_key_secret });
     }
 
     // Fallback: create a one-off PaymentIntent (useful if no price IDs are configured)
