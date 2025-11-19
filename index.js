@@ -101,7 +101,7 @@ app.post('/webhook', express.raw({ type: 'application/json' }), (req, res) => {
 
   // Handle the event types you care about
   switch (event.type) {
-    case 'invoice.payment_succeeded': {
+    case 'customer.subscription.created': {
       const invoice = event.data.object;
       console.log('Invoice payment succeeded:', invoice.id);
       // TODO: mark subscription as active in your database
@@ -124,6 +124,10 @@ app.post('/webhook', express.raw({ type: 'application/json' }), (req, res) => {
   }
 
   res.json({ received: true });
+});
+
+app.get('/', (req, res) => {
+  res.send('Stripe Payment Server is running.');
 });
 
 const port = process.env.PORT || 4242;
